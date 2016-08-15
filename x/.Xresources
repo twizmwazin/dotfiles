@@ -49,7 +49,7 @@
 *.color7:       t_selection
 *.color15:      t_current_line
 
-URxvt.font:	       xft:SourceCodePro-Regular:size=12
+URxvt.font:        xft:SourceCodePro-Regular:size=12
 URxvt.scrollBar:   false
 URxvt.letterSpace: -1
 

@@ -1,6 +1,0 @@
-# Ignore all the things
-*
-
-# Except this and Vundle
-!.gitignore
-!Vundle.Vim

@@ -1,16 +1,16 @@
 !TomorrowNight
-#define t_background       #1d1f21
-#define t_current_line     #282a2e
-#define t_selection        #373b41
-#define t_foreground       #c5c8c6
+#define t_background       #282828
+#define t_current_line     #ebdbb2
+#define t_selection        #a89984
+#define t_foreground       #ebdbb2
 #define t_comment          #969896
-#define t_red              #cc6666
-#define t_orange           #de935f
-#define t_yellow           #f0c674
-#define t_green            #b5bd68
-#define t_aqua             #8abeb7
-#define t_blue             #81a2be
-#define t_purple           #b294bb
+#define t_red              #cc241d
+#define t_orange           #d79921
+#define t_yellow           #fabd2f
+#define t_green            #98971a
+#define t_aqua             #689d6a
+#define t_blue             #458558
+#define t_purple           #b16286
 
 
 *.foreground:   t_foreground
@@ -18,16 +18,16 @@
 *.cursorColor:  #aeafad
 
 ! Black / Grey
-*.color0:       #000000
-*.color8:       #666666
+*.color0:       #282828
+*.color8:       #928374
 
 ! Red / Bright Red
 *.color1:       t_red
-*.color9:       #FF3334
+*.color9:       #fb4934
 
 ! Green + Bright Green
 *.color2:       t_green
-*.color10:      #9ec400
+*.color10:      #b8bb26
 
 ! Yellow (Orange) + Bright Yellow (Yellow)
 *.color3:       t_orange
@@ -35,30 +35,60 @@
 
 ! Blue + Bright Blue
 *.color4:       t_blue
-*.color12:      t_blue
+*.color12:      #83a598
 
 ! Magenta (Purple) + Bright Magenta
 *.color5:       t_purple
-*.color13:      #b777e0
+*.color13:      #d3869b
 
 ! Cyan (Aqua) + Bright Cyan
 *.color6:       t_aqua
-*.color14:      #54ced6
+*.color14:      #8ec07c
 
 ! Light Grey (Selection) + White (Current Line)
 *.color7:       t_selection
 *.color15:      t_current_line
 
-URxvt.font:        xft:SourceCodePro-Regular:size=12
+URxvt.font:        xft:SourceCodePro-Medium:size=12, FontAwesome:size=12
 URxvt.scrollBar:   false
 URxvt.letterSpace: -1
-
 URxvt.secondaryScreen: 1
 URxvt.secondaryScroll: 0
 URxvt.pearl-ext-common: default,matcher
 
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
+
+URxvt.color24:  #076678
+URxvt.color66:  #427b58
+URxvt.color88:  #9d0006
+URxvt.color96:  #8f3f71
+URxvt.color100: #79740e
+URxvt.color108: #8ec07c
+URxvt.color109: #83a598
+URxvt.color130: #af3a03
+URxvt.color136: #b57614
+URxvt.color142: #b8bb26
+URxvt.color167: #fb4934
+URxvt.color175: #d3869b
+URxvt.color208: #fe8019
+URxvt.color214: #fabd2f
+URxvt.color223: #ebdbb2
+URxvt.color228: #f2e5bc
+URxvt.color229: #fbf1c7
+URxvt.color230: #f9f5d7
+URxvt.color234: #1d2021
+URxvt.color235: #282828
+URxvt.color236: #32302f
+URxvt.color237: #3c3836
+URxvt.color239: #504945
+URxvt.color241: #665c54
+URxvt.color243: #7c6f64
+URxvt.color244: #928374
+URxvt.color245: #928374
+URxvt.color246: #a89984
+URxvt.color248: #bdae93
+URxvt.color250: #d5c4a1
 
 rofi.color-enabled:	true
 
@@ -74,5 +104,5 @@ rofi.font:           SourceCodePro-Regular 13
 rofi.fuzzy:	         true
 rofi.hide-scrollbar: true
 rofi.lines:	         15
-rofi.opacity:	     75
+rofi.opacity:        75
 rofi.bw:             0

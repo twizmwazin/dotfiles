@@ -1,27 +1,12 @@
-# Use super key as mod key
 set $mod Mod4
 
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
 font pango:SourceCodePro, FontAwesome, Unifont 10
-
-
-# Before i3 v4.8, we used to recommend this one as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -76,14 +61,14 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $ws1 "1: &#xf269;"
-set $ws2 "2: &#xf120;"
-set $ws3 "3: &#xf120;"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
+set $ws1 "1: &#xf120;"
+set $ws2 "2: &#xf268;"
+set $ws3 "3: &#xf121;"
+set $ws4 "4: &#xf1cb;"
+set $ws5 "5: &#xf126;"
+set $ws6 "6: &#xf086;"
+set $ws7 "7: &#xf02d;"
+set $ws8 "8: &#xf24a;"
 set $ws9 "9: &#xf1d8;"
 set $ws0 "10: &#xf1bc;"
 
@@ -116,7 +101,9 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves youSourceCodePro-Regularr layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
+# lock i3
+bindsym $mod+Shift+z exec --no-startup-id i3lock-fancy -f SourceCodePro
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -145,28 +132,26 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Color variables
-set $bg_color            #121f21
-set $bg_color_inac       #373b41
-set $text_color          #c5c8c6
-set $text_color_inac     #969896
-set $bg_color_urge       #cc6666
-#set $ind_color           #c5c8c6
+set $bg_color            #282828
+set $text_color          #ebdbb2
+set $text_color_inac     #7c6f64
+set $color_urge          #cc241d
 set $ind_color           $bg_color
-set $border_color        #373b41
+set $border_color        #282828
 
 # Color settings         border         background     text             indicator
-client.focused           $border_color  $bg_color      $text_color      $ind_color
-client.focused_inactive  $border_color  $bg_color_inac $text_color_inac $ind_color
-client.unfocused         $border_color  $bg_color_inac $text_color_inac $ind_color
-client.urgent            $border_color  $bg_color_urge $tect_color      $ind_color
+client.focused           $bg_color      $bg_color      $text_color      $ind_color
+client.focused_inactive  $bg_color      $bg_color      $text_color_inac $ind_color
+client.unfocused         $bg_color      $bg_color      $text_color_inac $ind_color
+client.urgent            $bg_color      $bg_color      $color_urge      $ind_color
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
 bar {
-        font pango:SourceCodePro-Regular, Awesome 10
-        status_command py3status -c ~/.i3/i3status.conf
+        font pango:SourceCodePro-Regular, FontAwesome 10
+        height 28
+        status_command py3status -c ~/.config/i3/i3status.conf
         position top
-        
+        tray_output none
+
         colors {
             background          $bg_color
             statusline          $text_color
@@ -185,34 +170,29 @@ for_window [class="^.*"] border pixel 1
 new_window 1pixel
 
 # Use Compton for compositing
-exec_always compton -f
+exec_always --no-startup-id compton -CF
 
 # Use feh to set wallpapers
-exec feh --bg-scale ~/Pictures/star_nebula_glow_94217_1920x1080.jpg
+exec --no-startup-id feh --bg-scale .wallpaper
 
 # Rofi, a program launcher
 bindsym $mod+d exec rofi -show run
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% && killall -USR1 py3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% && killall -USR1 py3status
-bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 0 toggle && killall -USR1 py3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #&& pkill -RTMIN+1 i3pystatus
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #&& pkill -RTMIN+1 i3pystatus
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 0 toggle #&& pkill -RTMIN+1 i3pystatus
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec ~/.i3/scripts/backlight inc # increase screen brightness
-bindsym XF86MonBrightnessDown exec ~/.i3/scripts/backlight dec # decrease screen brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/backlight inc #&& pkill -RTMIN+1 i3pystatus
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/backlight dec #&& pkill -RTMIN+1 i3pystatus
 
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play-pause && killall -USR1 py3status
-bindsym XF86AudioNext exec playerctl next && killall -USR1 py3status
-bindsym XF86AudioPrev exec playerctl previous && killall -USR1 py3status
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause #&& pkill -RTMIN+1 i3pystatus
+bindsym XF86AudioNext exec --no-startup-id playerctl next #&& pkill -RTMIN+1 i3pystatus
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous #&& pkill -RTMIN+1 i3pystatus
 
 # gaps!
-set $mode_gaps Toggle gaps: (1) on (2) off
-bindsym $mod+g mode "$mode_gaps"
-mode "$mode_gaps" {
-    bindsym 1 mode "default", gaps inner all set 10, gaps outer all set 4
-    bindsym 2 mode "default", gaps inner all set 0, gaps outer all set 0
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
+#gaps inner 10
+#gaps outer 4
+#smart_gaps on

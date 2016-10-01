@@ -62,7 +62,7 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 set $ws1 "1: &#xf120;"
-set $ws2 "2: &#xf268;"
+set $ws2 "2: &#xf269;"
 set $ws3 "3: &#xf121;"
 set $ws4 "4: &#xf1cb;"
 set $ws5 "5: &#xf126;"
@@ -150,7 +150,7 @@ bar {
         height 28
         status_command py3status -c ~/.config/i3/i3status.conf
         position top
-        tray_output none
+        #tray_output none
 
         colors {
             background          $bg_color
@@ -179,20 +179,15 @@ exec --no-startup-id feh --bg-scale .wallpaper
 bindsym $mod+d exec rofi -show run
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #&& pkill -RTMIN+1 i3pystatus
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #&& pkill -RTMIN+1 i3pystatus
-bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 0 toggle #&& pkill -RTMIN+1 i3pystatus
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% && killall -USR1 py3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% && killall -USR1 py3status
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 0 toggle && killall -USR1 py3status
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/backlight inc #&& pkill -RTMIN+1 i3pystatus
-bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/backlight dec #&& pkill -RTMIN+1 i3pystatus
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/backlight inc && killall -USR1 py3status
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/backlight dec && killall -USR1 py3status
 
 # Media player controls
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause #&& pkill -RTMIN+1 i3pystatus
-bindsym XF86AudioNext exec --no-startup-id playerctl next #&& pkill -RTMIN+1 i3pystatus
-bindsym XF86AudioPrev exec --no-startup-id playerctl previous #&& pkill -RTMIN+1 i3pystatus
-
-# gaps!
-#gaps inner 10
-#gaps outer 4
-#smart_gaps on
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause && killall -USR1 py3status
+bindsym XF86AudioNext exec --no-startup-id playerctl next && killall -USR1 py3status
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous && killall -USR1 py3status

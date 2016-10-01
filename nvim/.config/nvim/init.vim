@@ -99,6 +99,9 @@ let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
 
 let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_cpp_checkers=['gcc']
+
+let g:syntastic_cpp_check_header=1
 
 " Key bindings
 let mapleader=" "

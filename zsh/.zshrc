@@ -17,6 +17,7 @@ zplug "supercrabtree/k"
 zplug "hlissner/zsh-autopair"
 zplug "plugins/dnf", from:oh-my-zsh
 zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/colored-man-pages", from:oh-my-zsh
 
 zplug "shashankmehta/dotfiles", \
   use:thesetup/zsh/.oh-my-zsh/custom/themes/gitster.zsh-theme, \
@@ -28,10 +29,15 @@ fi
 
 zplug load
 
-export PATH=~/.local/bin:$PATH
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+bindkey -v
+
+export PATH=~/.cargo/bin:$PATH
 export EDITOR=nvim
 
-# Aliases
+export RUST_SRC_PATH=~/.local/src/rust
+
 alias vim=nvim
 alias vi=nvim
 alias ni=nvim

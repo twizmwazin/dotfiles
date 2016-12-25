@@ -2,13 +2,25 @@
 " Kevin Phoenix's init.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Plugins {{{
-" Automatically get vim-plug if it is missing
+" Plugins {{{1
+" Automatically get vim-plug if it is missing {{{2
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
 endif
+" }}}2
+
+" Plugin Functions {{{2
+
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    !cargo build --release
+    UpdateRemotePlugins
+  endif
+endfunction
+
+" }}}2
 
 call plug#begin()
 
@@ -76,6 +88,12 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
+" Markdown live preview
+Plug 'euclio/vim-markdown-composer', {
+      \ 'do': function('BuildComposer'),
+      \ 'for': 'markdown'
+      \ }
+
 " Startup screen
 Plug 'mhinz/vim-startify'
 
@@ -86,15 +104,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'Soares/base16.nvim'
 
 call plug#end()
-" }}}
+" }}}1
 
-" Misc Settings {{{
-set termguicolors
-set background=dark
-colorscheme eighties
-Base16Highlight ColorColumn bg=similar3
-Base16Highlight Pmenu bg=similar2
-
+" Misc Settings {{{1
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 
 set autoread
@@ -113,9 +125,22 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set expandtab
-" }}}
+" }}}1
 
-" Plugin Settings {{{
+" Theme Settings {{{1
+
+set termguicolors
+set background=dark
+colorscheme eighties
+Base16Highlight ColorColumn bg=similar3
+Base16Highlight Pmenu bg=similar2
+Base16Highlight MatchParen fg=bg bg=fg
+
+Base16Highlight ExtraWhitespace bg=dark2
+
+" }}}1
+
+" Plugin Settings {{{1
 silent exec "!command"
 set noshowmode
 
@@ -147,9 +172,11 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " This breaks my bindings currently
 let g:endwise_no_mappings = 1
-" }}}
+" }}}1
 
-" Functions {{{
+" Custom Keybindings {{{1
+
+" Keybing Functions {{{2
 function s:super_tab()
   if pumvisible()
     return "\<c-n>"
@@ -168,9 +195,8 @@ function s:super_enter()
   endif
 endfunction
 
-" }}}
+" }}}2
 
-" Custom Keybindings {{{
 let mapleader = " "
 
 " Command Aliases
@@ -192,4 +218,4 @@ imap <silent><expr><TAB> <SID>super_tab()
 imap <silent><expr><CR> <SID>super_enter()
 imap <silent><expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
-" }}}
+" }}}1

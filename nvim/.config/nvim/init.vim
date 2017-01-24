@@ -48,6 +48,8 @@ Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/neosnippet.vim' | Plug 'Shougo/neosnippet-snippets'
 Plug 'zchee/deoplete-clang', { 'for' : ['c', 'cpp', 'objc', 'objcpp'] }
 Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
+Plug 'artur-shaik/vim-javacomplete2', { 'for': ['java', 'jsp'] }
+Plug 'zchee/deoplete-jedi', { 'for': 'python' }
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neopairs.vim'
 Plug 'Shougo/context_filetype.vim'
@@ -62,6 +64,9 @@ Plug 'w0rp/ale'
 
 " Autoformatting
 Plug 'Chiel92/vim-autoformat'
+
+" Align text
+Plug 'junegunn/vim-easy-align'
 
 " Fuzzy-find files
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -109,6 +114,7 @@ call plug#end()
 " Misc Settings {{{1
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 
+" set shell=/bin/bash
 set autoread
 set ignorecase
 set smartcase
@@ -165,10 +171,20 @@ let g:deoplete#sources#clang#clang_header = '/usr/include/'
 
 " Rust stuff
 let g:deoplete#sources#rust#racer_binary = '/home/kevin/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path = '/home/kevin/.local/src/rust'
+let g:deoplete#sources#rust#rust_source_path = '/home/kevin/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/'
 
 " Hide completion preview when finsihed
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" ALE settings
+let g:ale_linters = {
+      \  'rust': []
+      \}
+if (&ft=='rust')
+  g:ale_rust_ignore_error_codes = 0
+  g:ale_lint_on_text_changed = 0
+  g:ale_lint_on_save = 1
+endif
 
 " This breaks my bindings currently
 let g:endwise_no_mappings = 1
@@ -205,7 +221,10 @@ nnoremap <silent> <leader>a :A<CR>
 nnoremap <silent> <leader>h :nohlsearch<CR>
 nnoremap <silent> <leader>f :Autoformat<CR>
 nnoremap <silent> <leader>o :FZF<CR>
+nnoremap <silent> <leader>m :!make<CR>
 nnoremap <leader>g :Ag<space>
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 " Common typos
 cnoremap W w

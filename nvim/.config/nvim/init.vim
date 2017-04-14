@@ -27,7 +27,7 @@ call plug#begin()
 " Automatically set buffer options
 Plug 'tpope/vim-sleuth'
 
-" Easy cimmenting/uncommenting
+" Easy commenting/uncommenting
 Plug 'tpope/vim-commentary'
 
 " Repeat custom commands
@@ -43,13 +43,8 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/neosnippet.vim' | Plug 'Shougo/neosnippet-snippets'
-Plug 'zchee/deoplete-clang', { 'for' : ['c', 'cpp', 'objc', 'objcpp'] }
-Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
-Plug 'artur-shaik/vim-javacomplete2', { 'for': ['java', 'jsp'] }
+Plug 'tweekmonster/deoplete-clang2', { 'for' : ['c', 'cpp', 'objc', 'objcpp'] }
 Plug 'zchee/deoplete-jedi', { 'for': 'python' }
-Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript'}
-Plug 'Shougo/neoinclude.vim'
-Plug 'Shougo/neopairs.vim'
 
 " Automatically close tags
 Plug 'jiangmiao/auto-pairs'
@@ -86,12 +81,6 @@ Plug 'airblade/vim-gitgutter'
 
 " Man pages
 Plug 'vim-utils/vim-man'
-
-" Markdown live preview
-Plug 'euclio/vim-markdown-composer', {
-      \ 'do': function('BuildComposer'),
-      \ 'for': 'markdown'
-      \ }
 
 " Startup screen
 Plug 'mhinz/vim-startify'
@@ -152,35 +141,20 @@ let g:airline_left_sep=''
 let g:airline_right_sep=''
 
 " Deoplete settings
-" let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#auto_complete_start_length = 3
-let g:deoplete#max_list = 24
+let g:deoplete#max_list = 8
 let g:deoplete#max_menu_width = 64
 let g:deoplete#enable_refresh_always = 1
 let g:deoplete#auto_refresh_delay = 0
-let g:neopairs#enable = 1
 
 " Clang stuff
 let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/include/'
 
-" Rust stuff
-let g:deoplete#sources#rust#racer_binary = '/home/kevin/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path = '/home/kevin/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/'
-
 " Hide completion preview when finsihed
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" ALE settings
-let g:ale_linters = {
-      \  'rust': []
-      \}
-if (&ft=='rust')
-  g:ale_rust_ignore_error_codes = 0
-  g:ale_lint_on_text_changed = 0
-  g:ale_lint_on_save = 1
-endif
 
 " This breaks my bindings currently
 let g:endwise_no_mappings = 1
@@ -196,28 +170,6 @@ let g:neoformat_basic_format_trim = 1
 " }}}1
 
 " Custom Keybindings {{{1
-
-" Keybing Functions {{{2
-function s:super_tab()
-  if pumvisible()
-    return "\<C-n>"
-  elseif neosnippet#expandable_or_jumpable()
-    return "\<Plug>(neosnippet_expand_or_jump)"
-  else
-    return "\<tab>"
-  endif
-endfunction
-
-function s:super_enter()
-  if pumvisible()
-    return deoplete#close_popup()
-  else
-    return "\<CR>"
-  endif
-endfunction
-
-" }}}2
-
 let mapleader = " "
 
 " Command Aliases
@@ -237,9 +189,21 @@ cnoremap Wq wq
 cnoremap Q q
 cnoremap Qa qa
 
-" Tab Complete
-imap <silent><expr><TAB> <SID>super_tab()
-" imap <silent><expr><CR> <SID>super_enter()
-" imap <silent><expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+" Vertical vim help
+cnoremap vh vert help
+
+" Tab/Enter Complete
+imap <silent><expr><TAB>
+      \ pumvisible() ?
+      \ "\<C-n>" :
+      \ neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)" :
+      \ "\<TAB>"
+
+inoremap <silent><expr><CR>
+      \ pumvisible() ? "\<C-n>" . deoplete#close_popup() : "\<CR>"
+
+inoremap <silent><expr><BS>
+      \ pumvisible() ? deoplete#smart_close_popup() : "\<BS>"
 
 " }}}1

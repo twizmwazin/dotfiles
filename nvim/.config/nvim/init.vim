@@ -43,7 +43,7 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/neosnippet.vim' | Plug 'Shougo/neosnippet-snippets'
-Plug 'tweekmonster/deoplete-clang2', { 'for' : ['c', 'cpp', 'objc', 'objcpp'] }
+Plug 'zchee/deoplete-clang', { 'for' : ['c', 'cpp', 'objc', 'objcpp'] }
 Plug 'zchee/deoplete-jedi', { 'for': 'python' }
 
 " Automatically close tags
@@ -137,17 +137,16 @@ set noshowmode
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'base16_eighties'
-let g:airline_left_sep=''
-let g:airline_right_sep=''
 
 " Deoplete settings
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
-let g:deoplete#auto_complete_start_length = 3
+let g:deoplete#auto_complete_start_length = 2
 let g:deoplete#max_list = 8
 let g:deoplete#max_menu_width = 64
 let g:deoplete#enable_refresh_always = 1
 let g:deoplete#auto_refresh_delay = 0
+let b:deoplete_ignore_sources = ['neosnippet']
 
 " Clang stuff
 let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so'
@@ -193,17 +192,18 @@ cnoremap Qa qa
 cnoremap vh vert help
 
 " Tab/Enter Complete
-imap <silent><expr><TAB>
-      \ pumvisible() ?
-      \ "\<C-n>" :
-      \ neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)" :
-      \ "\<TAB>"
+inoremap <silent><expr><TAB>
+      \ pumvisible() ? deoplete#manual_complete() : "\<TAB>"
 
 inoremap <silent><expr><CR>
-      \ pumvisible() ? "\<C-n>" . deoplete#close_popup() : "\<CR>"
+      \ pumvisible() ? deoplete#manual_complete() : "\<CR>"
 
 inoremap <silent><expr><BS>
       \ pumvisible() ? deoplete#smart_close_popup() : "\<BS>"
+
+imap <silent><expr><C-e>
+      \ neosnippet#expandable_or_jumpable()
+      \ ? "\<Plug>(neosnippet_expand_or_jump)"
+      \ : "\<C-e>"
 
 " }}}1

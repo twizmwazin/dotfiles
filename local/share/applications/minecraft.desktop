@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Minecraft
+Comment=
+Exec=env vblank_mode=0 /home/kevin/.multimc/MultiMC
+Icon=minecraft
+Terminal=false
+Type=Application
+StartupNotify=true

@@ -19,7 +19,7 @@ fi
 zplug load
 
 export EDITOR=nvim
-export PATH=$PATH:~/.cargo/bin:~/workspace/go/bin
+export PATH=$PATH:~/.local/bin:~/.cargo/bin:~/workspace/go/bin
 export GOPATH=~/workspace/go
 
 alias vim=nvim

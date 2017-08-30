@@ -57,7 +57,7 @@ pkg-mm:
 		${HOME}/.local/share/gnome-shell/extensions
 
 env-c:
-	sudo dnf install -y clang gcc gcc-c++
+	sudo dnf install -y clang cmake gcc gcc-c++ ninja-build
 
 env-go:
 	sudo dnf -y install golang

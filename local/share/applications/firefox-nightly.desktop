@@ -1,0 +1,21 @@
+[Desktop Entry]
+Name=Nightly
+Comment=Browse the World Wide Web
+Icon=/home/kevin/.firefox/browser/icons/mozicon128.png
+Exec=/home/kevin/.firefox/firefox %u
+Terminal=false
+Type=Application
+Categories=Network;WebBrowser;
+Actions=Default;Mozilla;ProfileManager;
+
+[Desktop Action Default]
+Name=Default Profile
+Exec=/home/kevin/.firefox/firefox --no-remote -P minefield-default
+
+[Desktop Action Mozilla]
+Name=Mozilla Profile
+Exec=/home/kevin/.firefox/firefox --no-remote -P minefield-mozilla
+
+[Desktop Action ProfileManager]
+Name=Profile Manager
+Exec=/home/kevin/.firefox/firefox --no-remote --profile-manager

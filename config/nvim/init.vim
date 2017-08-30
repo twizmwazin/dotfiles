@@ -26,8 +26,7 @@ Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/neco-vim'
-Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp', 'objc', 'objcpp'] }
-Plug 'racer-rust/vim-racer', { 'for': ['rust'] }
+Plug 'zchee/deoplete-clang', { 'for': 'cpp' }
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
 Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 
@@ -72,6 +71,7 @@ colorscheme base16-tomorrow-night
 
 " Plugin settings {{{
 let g:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
 
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
@@ -96,8 +96,12 @@ let g:neoformat_basic_format_align = 1
 let g:neoformat_basic_format_trim = 1
 let g:neoformat_enabled_go = ['gofmt']
 
+
+let $RUST_SRC_PATH = glob("$HOME/.rustup/toolchains/nightly*/lib/rustlib/src/rust/src")
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {
+      \ 'c': ['clangd'],
+      \ 'cpp': ['clangd'],
       \ 'python': ['pyls'],
       \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
       \ }

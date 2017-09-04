@@ -18,7 +18,7 @@ zsh:
 
 pkg-cli:
 	sudo dnf install -y git htop neovim python2-neovim python3-neovim \
-		python3-jedi sqlite subversion tmux zsh
+		python3-jedi sl sqlite subversion tmux zsh
 
 pkg-gui:
 	sudo dnf config-manager \

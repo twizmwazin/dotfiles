@@ -26,3 +26,8 @@ alias vim=nvim
 
 alias nvimedit="$EDITOR ~/.config/nvim/init.vim"
 alias zshedit="$EDITOR ~/.zshrc"
+
+# export GPG_TTY="$(tty)"
+# export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
+# gpgconf --launch gpg-agent
+
